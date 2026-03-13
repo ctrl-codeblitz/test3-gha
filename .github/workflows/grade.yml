@@ -1,7 +1,9 @@
 name: Grade Submissions
 
 on:
-  push
+  push:
+    paths: 
+      - 'stage1/**'
 
 jobs:
   grade:
@@ -13,4 +15,4 @@ jobs:
         run: chmod +x grade.sh
       
       - name: Run grading script
-        run: ./grade.sh
+        run: ./grade.sh stage1
