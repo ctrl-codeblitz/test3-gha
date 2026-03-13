@@ -1,0 +1,16 @@
+name: Grade Submissions
+
+on:
+  push
+
+jobs:
+  grade:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      
+      - name: Make script executable
+        run: chmod +x grade.sh
+      
+      - name: Run grading script
+        run: ./grade.sh
