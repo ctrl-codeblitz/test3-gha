@@ -18,7 +18,6 @@ jobs:
       - name: Detect Stage
         id: set_stage
         run: |
-          # Check if any changed file starts with stage1/
           if echo "${{ steps.changed-files.outputs.all_changed_files }}" | grep -q "stage1/"; then
             echo "current_stage=1" >> $GITHUB_OUTPUT
             echo "next_stage=2" >> $GITHUB_OUTPUT
