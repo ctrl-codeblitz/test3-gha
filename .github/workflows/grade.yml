@@ -25,6 +25,6 @@ jobs:
           --max-time 60 \
           -H "Content-Type: application/json" \
           -d '{
-            "team_name": "${{ github.repository }}",
+            "team_name": "${{ github.event.repository.name }}",
             "stage": 2
           }'
