@@ -10,12 +10,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+
+      - name: Detect stage
+        id: set_stage
+        run: |
+          if [[ "${{ github.event.head_commit.modified }}" == *"stage1/"* ]]; then
+            echo "current_stage=1" >> $GITHUB_OUTPUT
+            echo "next_stage=2" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event.head_commit.modified }}" == *"stage2/"* ]]; then
+            echo "current_stage=2" >> $GITHUB_OUTPUT
+            echo "next_stage=3" >> $GITHUB_OUTPUT
+          fi
       
       - name: Make script executable
         run: chmod +x grade.sh
       
       - name: Run grading script
-        run: ./grade.sh stage1
+        run: ./grade.sh stage${{ steps.set_stage.outputs.current_stage }}
 
       - name: Proceed to next stage
         if: success()
@@ -26,5 +37,5 @@ jobs:
           -H "Content-Type: application/json" \
           -d '{
             "team_name": "${{ github.event.repository.name }}",
-            "stage": 2
+            "stage": ${{ steps.set_stage.outputs.next_stage }}
           }'
