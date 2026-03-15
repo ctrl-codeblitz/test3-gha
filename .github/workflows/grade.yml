@@ -11,13 +11,18 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Detect stage
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+      
+      - name: Detect Stage
         id: set_stage
         run: |
-          if [[ "${{ github.event.head_commit.modified }}" == *"stage1/"* ]]; then
+          # Check if any changed file starts with stage1/
+          if echo "${{ steps.changed-files.outputs.all_changed_files }}" | grep -q "stage1/"; then
             echo "current_stage=1" >> $GITHUB_OUTPUT
             echo "next_stage=2" >> $GITHUB_OUTPUT
-          elif [[ "${{ github.event.head_commit.modified }}" == *"stage2/"* ]]; then
+          elif echo "${{ steps.changed-files.outputs.all_changed_files }}" | grep -q "stage2/"; then
             echo "current_stage=2" >> $GITHUB_OUTPUT
             echo "next_stage=3" >> $GITHUB_OUTPUT
           fi
