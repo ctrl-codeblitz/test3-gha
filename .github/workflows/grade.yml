@@ -20,7 +20,7 @@ jobs:
       - name: Proceed to next stage
         if: success()
         run: |
-          curl -X POST https://unfurbished-nonmanifest-alishia.ngrok-free.dev/ \
+          curl -X POST https://unfurbished-nonmanifest-alishia.ngrok-free.dev/next-stage \
           --connect-timeout 20 \
           --max-time 60 \
           -H "Content-Type: application/json" \
