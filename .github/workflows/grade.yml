@@ -3,7 +3,7 @@ name: Grade Submissions
 on:
   push:
     paths: 
-      - 'stage1/**'
+      - 'stage1/solutions/**'
 
 jobs:
   grade:
